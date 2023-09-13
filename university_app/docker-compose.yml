@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www/
+            - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+
+        ports:
+            -   "9001:80"
+        container_name: university_nginx
+        depends_on:
+            - app
+    app:
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        volumes:
+            - ./:/var/www/
+        container_name: university_app
+        depends_on:
+            -   db
+    db:
+        image: mysql:8.0
+        restart: always
+        volumes:
+            -   ./tmp/db:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: university
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            -   "9002:3306"
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        container_name: university_db
+        depends_on:
+            - phpmyadmin
+    phpmyadmin:
+        image: phpmyadmin
+        ports:
+            - 9003:80
+        environment:
+            PMA_HOST: db
+            MYSQL_ROOT_PASSWORD: root
