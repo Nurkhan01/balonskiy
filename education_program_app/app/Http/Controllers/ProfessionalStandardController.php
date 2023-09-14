@@ -6,16 +6,27 @@ use App\Http\Requests\ProfessionalStandardRequest;
 use App\Http\Resources\ProfessionalStandardResource;
 use App\Models\ProfessionalStandard;
 use App\Services\ProfessionalStandardService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProfessionalStandardController extends Controller
 {
+    /**
+     * Получает все данные из таблицы professional_standard
+     * @return AnonymousResourceCollection
+     */
     public function index()
     {
         $data = ProfessionalStandard::all();
         return ProfessionalStandardResource::collection($data);
     }
 
+    /**
+     * Создает данные в таблицу professional_standard ссылаясь на сервис ProfessionalStandardService
+     * @param ProfessionalStandardRequest $request
+     * @return JsonResponse
+     */
     public function create(ProfessionalStandardRequest $request)
     {
         $data = $request->validated();
@@ -28,6 +39,12 @@ class ProfessionalStandardController extends Controller
     }
 
 
+    /**
+     * Изменяет данные в таблице professional_standard ссылаясь на сервис ProfessionalStandardService
+     * @param ProfessionalStandardRequest $request
+     * @param ProfessionalStandard $professionalStandard
+     * @return JsonResponse
+     */
     public function update(ProfessionalStandardRequest $request, ProfessionalStandard $professionalStandard)
     {
         $data = $request->validated();
@@ -39,6 +56,11 @@ class ProfessionalStandardController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет данные из таблицы professional_standard
+     * @param ProfessionalStandard $professionalStandard
+     * @return JsonResponse
+     */
     public function delete(ProfessionalStandard $professionalStandard)
     {
         $professionalStandard->delete();

@@ -24,6 +24,11 @@ class LogController extends Controller
         return ['user' => Redis::get('user:profile:'.$id)];
     }
 
+    /**
+     * Записывает полученные данные с тела запроса в базу REDIS
+     * @param FormRequest $request
+     * @return mixed
+     */
     public function set(FormRequest $request){
         Redis::lpush('user:'.$request['id'], $request['name']."asdasd");
         $values = Redis::lrange('user:1', 0, -1);

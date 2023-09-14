@@ -9,11 +9,20 @@ use App\Services\Student\Employment\StudentEmploymentService;
 
 class StudentEmploymentController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => StudentEmployment::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param StudentEmploymentRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(StudentEmploymentRequest $request)
     {
         $data = $request->validated();
@@ -26,6 +35,12 @@ class StudentEmploymentController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param StudentEmploymentRequest $request
+     * @param StudentEmployment $studentEmployment
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(StudentEmploymentRequest $request, StudentEmployment $studentEmployment)
     {
         $data = $request->validated();
@@ -38,6 +53,11 @@ class StudentEmploymentController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param StudentEmployment $studentEmployment
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(StudentEmployment $studentEmployment)
     {
         $studentEmployment->delete();

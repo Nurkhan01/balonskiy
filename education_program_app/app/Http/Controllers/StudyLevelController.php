@@ -6,16 +6,27 @@ use App\Http\Requests\StudyLevelRequest;
 use App\Http\Resources\StudyLevelResource;
 use App\Models\StudyLevel;
 use App\Services\StudyLevelService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class StudyLevelController extends Controller
 {
+    /**
+     * Получает все данные из таблицы study_level
+     * @return AnonymousResourceCollection
+     */
     public function index()
     {
         $data = StudyLevel::all();
         return StudyLevelResource::collection($data);
     }
 
+    /**
+     * Создает данные в таблицу study_level ссылаясь на сервис StudyLevelService
+     * @param StudyLevelRequest $request
+     * @return JsonResponse
+     */
     public function create(StudyLevelRequest $request)
     {
         $data = $request->validated();
@@ -28,6 +39,12 @@ class StudyLevelController extends Controller
     }
 
 
+    /**
+     * Изменяет данные в таблице study_level ссылаясь на сервис StudyLevelService
+     * @param StudyLevelRequest $request
+     * @param StudyLevel $studyLevel
+     * @return JsonResponse
+     */
     public function update(StudyLevelRequest $request, StudyLevel $studyLevel)
     {
         $data = $request->validated();
@@ -39,6 +56,11 @@ class StudyLevelController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет данные из таблицы study_level
+     * @param StudyLevel $studyLevel
+     * @return JsonResponse
+     */
     public function delete(StudyLevel $studyLevel)
     {
         $studyLevel->delete();

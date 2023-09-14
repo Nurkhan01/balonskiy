@@ -11,12 +11,21 @@ use App\Services\Dormitory\DormitoryTypeUpdateService;
 
 class DormitoryTypeController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $data = DormitoryType::all();
         return DormitoryTypeResource::collection($data);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param DormitoryTypeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(DormitoryTypeRequest $request)
     {
         $data = $request->validated();
@@ -30,7 +39,12 @@ class DormitoryTypeController extends Controller
 
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param DormitoryTypeRequest $request
+     * @param DormitoryType $dormitoryType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(DormitoryTypeRequest $request, DormitoryType $dormitoryType)
     {
         $data = $request->validated();
@@ -42,6 +56,11 @@ class DormitoryTypeController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param DormitoryType $dormitoryType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(DormitoryType $dormitoryType)
     {
         $dormitoryType->delete();

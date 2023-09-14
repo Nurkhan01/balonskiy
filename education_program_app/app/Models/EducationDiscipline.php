@@ -24,6 +24,11 @@ class EducationDiscipline extends Model
         'is_multilanguage',
         'is_kazakh',
         'is_russian',
+        'is_remote',
+        'is_not_remote',
+        'is_mook',
+        'mook_platform_name',
+        'mook_cource_duration',
     ];
     use HasFactory;
 

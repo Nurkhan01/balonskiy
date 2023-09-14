@@ -6,9 +6,11 @@ use App\Models\Teacher\Publication\Publication;
 
 class PublicationService
 {
+    // Создает запись в базе данных для указанной таблицы
     public function create($data){
         return Publication::create($data);
     }
+    // Обновляет данные по $dataId по указанной таблице
     public function update($dataId, $data){
         if ($dataId) {
             $dataId->update($data);

@@ -9,11 +9,20 @@ use App\Services\Mobility\MobilityTypeService;
 
 class MobilityTypeController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => MobilityType::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param MobilityTypeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(MobilityTypeRequest $request)
     {
         $data = $request->validated();
@@ -25,7 +34,12 @@ class MobilityTypeController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param MobilityTypeRequest $request
+     * @param MobilityType $mobilityType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(MobilityTypeRequest $request, MobilityType $mobilityType)
     {
         $data = $request->validated();
@@ -37,6 +51,11 @@ class MobilityTypeController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param MobilityType $mobilityType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(MobilityType $mobilityType)
     {
         $mobilityType->delete();

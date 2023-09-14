@@ -13,12 +13,25 @@ class AccreditationBodyController extends Controller
 {
     private string $action = 'accreditation/body';
     use HttpRequestTrait;
+
+    /**
+     * Получает данные о теле(содержании) аккредитации отправив запрос на микросервис университетов
+     * @param HttpRequestService $service
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function index(HttpRequestService $service)
     {
         return $service->getData("$this->universityPort", "$this->action");
     }
 
-
+    /**
+     * Создает данные о теле(содержании) аккредитации отправив запрос на микросервис университетов
+     * @param Request $request
+     * @param HttpRequestService $service
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function create(Request $request, HttpRequestService $service)
 
     {
@@ -28,6 +41,15 @@ class AccreditationBodyController extends Controller
         }
         return 'Error';
     }
+
+    /**
+     * Изменяет данные о теле(содержании) аккредитации отправив запрос на микросервис университетов
+     * @param Request $request
+     * @param HttpRequestService $service
+     * @param $id
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function update(Request $request, HttpRequestService $service, $id)
     {
         $data = $request->all();
@@ -37,6 +59,13 @@ class AccreditationBodyController extends Controller
         return 'Error';
     }
 
+    /**
+     * Удаляет данные о теле(содержании) аккредитации отправив запрос на микросервис университетов
+     * @param HttpRequestService $service
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function delete(HttpRequestService $service, $id)
     {
         return $service->deleteData("$this->universityPort","$this->action/delete","$id");

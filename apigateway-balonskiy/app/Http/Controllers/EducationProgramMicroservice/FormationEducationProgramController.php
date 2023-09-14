@@ -11,14 +11,26 @@ use Illuminate\Http\Request;
 class FormationEducationProgramController extends Controller
 {
     private string $action = 'formation-education-program';
-
     use HttpRequestTrait;
+
+    /**
+     * Получает данные о формированиях ОП отправив запрос на микросервис образовательных программ
+     * @param HttpRequestService $service
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function index(HttpRequestService $service)
     {
         return $service->getData("$this->educationProgramPort", "$this->action");
     }
 
-
+    /**
+     * Создает данные о формированиях ОП отправив запрос на микросервис  образовательных программ
+     * @param Request $request
+     * @param HttpRequestService $service
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function create(Request $request, HttpRequestService $service)
 
     {
@@ -28,6 +40,15 @@ class FormationEducationProgramController extends Controller
         }
         return 'Error';
     }
+
+    /**
+     * Изменяет данные о формированиях ОП отправив запрос на микросервис  образовательных программ
+     * @param Request $request
+     * @param HttpRequestService $service
+     * @param $id
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function update(Request $request, HttpRequestService $service, $id)
     {
         $data = $request->all();
@@ -37,6 +58,13 @@ class FormationEducationProgramController extends Controller
         return 'Error';
     }
 
+    /**
+     * Удаляет данные о формированиях ОП отправив запрос на микросервис  образовательных программ
+     * @param HttpRequestService $service
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function delete(HttpRequestService $service, $id)
     {
         return $service->deleteData("$this->educationProgramPort","$this->action/delete","$id");

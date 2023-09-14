@@ -9,11 +9,20 @@ use Illuminate\Http\Request;
 
 class MobilityController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Mobility::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param MobilityRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(MobilityRequest $request)
     {
         $data = $request->validated();
@@ -27,7 +36,12 @@ class MobilityController extends Controller
 
     }
 
-
+    /**
+     * Изменяет запись в базе данных обратившись в сервис
+     * @param MobilityRequest $request
+     * @param Mobility $mobility
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(MobilityRequest $request, Mobility $mobility)
     {
         $data = $request->validated();
@@ -39,6 +53,11 @@ class MobilityController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Mobility $mobility
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Mobility $mobility)
     {
         $mobility->delete();

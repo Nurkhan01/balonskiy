@@ -6,16 +6,27 @@ use App\Http\Requests\GraduateDocumentTypeRequest;
 use App\Http\Resources\GraduateDocumentTypeResource;
 use App\Models\GraduateDocumentType;
 use App\Services\GraduateDocumentTypeService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class GraduateDocumentTypeController extends Controller
 {
+    /**
+     * Получает все данные из таблицы graduate_document_type
+     * @return AnonymousResourceCollection
+     */
     public function index()
     {
         $data = GraduateDocumentType::all();
         return GraduateDocumentTypeResource::collection($data);
     }
 
+    /**
+     * Создает данные в таблицу graduate_document_type ссылаясь на сервис GraduateDocumentTypeService
+     * @param GraduateDocumentTypeRequest $request
+     * @return JsonResponse
+     */
     public function create(GraduateDocumentTypeRequest $request)
     {
         $data = $request->validated();
@@ -28,6 +39,12 @@ class GraduateDocumentTypeController extends Controller
     }
 
 
+    /**
+     * Изменяет данные в таблице graduate_document_type ссылаясь на сервис GraduateDocumentTypeService
+     * @param GraduateDocumentTypeRequest $request
+     * @param GraduateDocumentType $dataId
+     * @return JsonResponse
+     */
     public function update(GraduateDocumentTypeRequest $request, GraduateDocumentType $dataId)
     {
         $data = $request->validated();
@@ -39,6 +56,11 @@ class GraduateDocumentTypeController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет данные из таблицы graduate_document_type
+     * @param GraduateDocumentType $dataId
+     * @return JsonResponse
+     */
     public function delete(GraduateDocumentType $dataId)
     {
         $dataId->delete();

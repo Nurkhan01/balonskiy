@@ -9,11 +9,20 @@ use App\Services\Student\DisabilityCategoryService;
 
 class DisabilityCategoryController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => DisabilityCategory::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param DisabilityCategoryRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(DisabilityCategoryRequest $request)
     {
         $data = $request->validated();
@@ -25,6 +34,12 @@ class DisabilityCategoryController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param DisabilityCategoryRequest $request
+     * @param DisabilityCategory $disabilityCategory
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function update(DisabilityCategoryRequest $request, DisabilityCategory $disabilityCategory)
     {
@@ -37,6 +52,11 @@ class DisabilityCategoryController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param DisabilityCategory $disabilityCategory
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(DisabilityCategory $disabilityCategory)
     {
         $disabilityCategory->delete();

@@ -28,8 +28,7 @@ class EducationDisciplineJob implements ShouldQueue
     }
 
     /**
-     * Execute the job.
-     *
+     * Записывает полученные данные с очереди в базу REDIS
      * @return void
      */
     public function handle()

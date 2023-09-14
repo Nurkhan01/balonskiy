@@ -9,10 +9,20 @@ use App\Services\Teacher\Training\TrainingPaymentTypeService;
 
 class TrainingPaymentTypeController extends Controller
 {
+    /**
+     * Отображает список данных
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => TrainingPaymentType::all()]);
     }
+
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param TrainingPaymentTypeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function create(TrainingPaymentTypeRequest $request)
     {
@@ -27,6 +37,12 @@ class TrainingPaymentTypeController extends Controller
 
     }
 
+    /**
+     * Изменяет запись в базе данных обратившись в сервис
+     * @param TrainingPaymentTypeRequest $request
+     * @param TrainingPaymentType $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function update(TrainingPaymentTypeRequest $request, TrainingPaymentType $dataId)
     {
@@ -41,6 +57,11 @@ class TrainingPaymentTypeController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param TrainingPaymentType $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(TrainingPaymentType $dataId)
     {
         $dataId->delete();

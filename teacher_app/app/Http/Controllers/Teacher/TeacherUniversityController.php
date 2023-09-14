@@ -10,11 +10,22 @@ use Illuminate\Http\Request;
 
 class TeacherUniversityController extends Controller
 {
+    /**
+     * Отображает список преподавателей университета.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => TeacherUniversity::all()]);
     }
 
+    /**
+     * Сохраняет нового преподавателя университета в хранилище.
+     *
+     * @param  TeacherUniversityRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(TeacherUniversityRequest $request)
     {
         $data = $request->validated();
@@ -28,7 +39,13 @@ class TeacherUniversityController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанного преподавателя университета в хранилище.
+     *
+     * @param  TeacherUniversityRequest  $request
+     * @param  TeacherUniversity  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(TeacherUniversityRequest $request, TeacherUniversity $dataId)
     {
         $data = $request->validated();
@@ -40,6 +57,12 @@ class TeacherUniversityController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанного преподавателя университета из хранилища.
+     *
+     * @param  TeacherUniversity  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(TeacherUniversity $dataId)
     {
         $dataId->delete();

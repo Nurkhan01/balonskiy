@@ -11,12 +11,21 @@ use App\Services\Dormitory\UniversityDormitoryUpdateService;
 
 class UniversityDormitoryController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $data = UniversityDormitory::all();
         return UniversityDormitoryResource::collection($data);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param UniversityDormitoryRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(UniversityDormitoryRequest $request)
     {
         $data = $request->validated();
@@ -28,7 +37,12 @@ class UniversityDormitoryController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param UniversityDormitoryRequest $request
+     * @param UniversityDormitory $universityDormitory
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UniversityDormitoryRequest $request, UniversityDormitory $universityDormitory)
     {
         $data = $request->validated();
@@ -40,6 +54,11 @@ class UniversityDormitoryController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param UniversityDormitory $universityDormitory
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(UniversityDormitory $universityDormitory)
     {
         $universityDormitory->delete();

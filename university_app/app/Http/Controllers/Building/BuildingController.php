@@ -12,12 +12,21 @@ use Illuminate\Http\Request;
 
 class BuildingController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $data = Building::all();
         return BuildingResource::collection($data);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param BuildingRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(BuildingRequest $request)
     {
         $data = $request->validated();
@@ -29,7 +38,12 @@ class BuildingController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param BuildingRequest $request
+     * @param Building $building
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(BuildingRequest $request, Building $building)
     {
         $data = $request->validated();
@@ -42,6 +56,11 @@ class BuildingController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Building $building
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Building $building)
     {
         $building->delete();

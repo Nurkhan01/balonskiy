@@ -12,12 +12,21 @@ use Illuminate\Http\Request;
 
 class UniversityBuildingController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $data = UniversityBuilding::all();
         return UniversityBuildingResource::collection($data);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param UniversityBuildingRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(UniversityBuildingRequest $request)
     {
         $data = $request->validated();
@@ -29,7 +38,12 @@ class UniversityBuildingController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param UniversityBuildingRequest $request
+     * @param UniversityBuilding $universityBuilding
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UniversityBuildingRequest $request, UniversityBuilding $universityBuilding)
     {
         $data = $request->validated();
@@ -43,6 +57,12 @@ class UniversityBuildingController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param UniversityBuilding $universityBuilding
+     * @return \Illuminate\Http\JsonResponse
+     *
+     */
     public function delete(UniversityBuilding $universityBuilding)
     {
         $universityBuilding->delete();

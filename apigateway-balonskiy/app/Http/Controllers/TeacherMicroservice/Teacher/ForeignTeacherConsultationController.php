@@ -5,45 +5,70 @@ namespace App\Http\Controllers\TeacherMicroservice\Teacher;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\ForeignTeacherConsultationRequest;
 use App\Models\Teacher\ForeignTeacherConsultation;
+use App\Services\Api\HttpRequestService;
 use App\Services\Teacher\ForeignTeacherConsultationService;
+use App\Services\Traits\HttpRequestTrait;
+use Illuminate\Http\Request;
 
 class ForeignTeacherConsultationController extends Controller
 {
-    public function index()
+    private string $action = 'foreign-teacher-consultation';
+    use HttpRequestTrait;
+
+    /**
+     * Получает данные о консультациях иностранных ППС универтитетов отправив запрос на микросервис преподователей
+     * @param HttpRequestService $service
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function index(HttpRequestService $service)
     {
-        return response()->json(['data' => ForeignTeacherConsultation::all()]);
+        return $service->getData("$this->teacherPort", "$this->action");
     }
 
-    public function create(ForeignTeacherConsultationRequest $request)
-    {
-        $data = $request->validated();
+    /**
+     * Создает данные о консультациях иностранных ППС универтитетов отправив запрос на микросервис преподователей
+     * @param Request $request
+     * @param HttpRequestService $service
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function create(Request $request, HttpRequestService $service)
 
-        $service = new ForeignTeacherConsultationService();
-        $yourModel = $service->create($data);
-        if ($yourModel) {
-            return response()->json(['message' => "Data added successfully"]);
+    {
+        $data = $request->all();
+        if ($data) {
+            return $service->createData("$this->teacherPort","$this->action/create",$data);
         }
-        return response()->json(['error' => 'An error occurred while added data']);
-
+        return 'Error';
     }
 
-
-    public function update(ForeignTeacherConsultationRequest $request, ForeignTeacherConsultation $dataId)
+    /**
+     * Изменяет данные о консультациях иностранных ППС универтитетов отправив запрос на микросервис преподователей
+     * @param Request $request
+     * @param HttpRequestService $service
+     * @param $id
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function update(Request $request, HttpRequestService $service, $id)
     {
-        $data = $request->validated();
-
-        $service = new ForeignTeacherConsultationService();
-        $yourModel = $service->update($dataId, $data);
-        if ($yourModel) {
-            return response()->json(['message' => "Data updated successfully"]);
+        $data = $request->all();
+        if ($data) {
+            return $service->updateData("$this->teacherPort","$this->action/update",$data,"$id");
         }
-        return response()->json(['error' => 'An error occurred while updated data']);
-
+        return 'Error';
     }
 
-    public function delete(ForeignTeacherConsultation $dataId)
+    /**
+     * Удаляет данные о консультациях иностранных ППС универтитетов отправив запрос на микросервис преподователей
+     * @param HttpRequestService $service
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function delete(HttpRequestService $service, $id)
     {
-        $dataId->delete();
-        return response()->json(['message' => "Data has been deleted"]);
+        return $service->deleteData("$this->teacherPort","$this->action/delete","$id");
     }
 }

@@ -9,11 +9,20 @@ use App\Services\Student\PaymentTypeService;
 
 class PaymentTypeController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => PaymentType::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param PaymentTypeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(PaymentTypeRequest $request)
     {
         $data = $request->validated();
@@ -25,7 +34,12 @@ class PaymentTypeController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Изменяет запись в базе данных обратившись в сервис
+     * @param PaymentTypeRequest $request
+     * @param PaymentType $paymentType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(PaymentTypeRequest $request, PaymentType $paymentType)
     {
         $data = $request->validated();
@@ -37,6 +51,11 @@ class PaymentTypeController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param PaymentType $paymentType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(PaymentType $paymentType)
     {
         $paymentType->delete();

@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index(Request $request)
     {
         $university_id = $request->query('university_id', null);
@@ -22,6 +27,11 @@ class DepartmentController extends Controller
         return response()->json(['error' => "University ID doesn't exists"], 422);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param DepartmentRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(DepartmentRequest $request)
     {
         $data = $request->validated();
@@ -35,7 +45,12 @@ class DepartmentController extends Controller
 
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param DepartmentRequest $request
+     * @param Department $department
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(DepartmentRequest $request, Department $department)
     {
         $data = $request->validated();
@@ -49,6 +64,11 @@ class DepartmentController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Department $department
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Department $department)
     {
 

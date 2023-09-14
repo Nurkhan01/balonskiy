@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('is_multilanguage');
             $table->boolean('is_kazakh');
             $table->boolean('is_russian');
-            $table->boolean('is_remote');
+            $table->boolean('is_remote')->default(0);
             $table->boolean('is_not_remote');
             $table->boolean('is_mook');
             $table->string('mook_platform_name');

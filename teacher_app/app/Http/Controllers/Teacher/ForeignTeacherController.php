@@ -9,11 +9,22 @@ use App\Services\Teacher\ForeignTeacherService;
 
 class ForeignTeacherController extends Controller
 {
+    /**
+     * Отображает список иностранных преподавателей.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => ForeignTeacher::all()]);
     }
 
+    /**
+     * Сохраняет нового иностранного преподавателя в хранилище.
+     *
+     * @param  ForeignTeacherRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(ForeignTeacherRequest $request)
     {
         $data = $request->validated();
@@ -27,7 +38,13 @@ class ForeignTeacherController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанного иностранного преподавателя в хранилище.
+     *
+     * @param  ForeignTeacherRequest  $request
+     * @param  ForeignTeacher  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(ForeignTeacherRequest $request, ForeignTeacher $dataId)
     {
         $data = $request->validated();
@@ -41,6 +58,12 @@ class ForeignTeacherController extends Controller
 
     }
 
+    /**
+     * Удаляет указанного иностранного преподавателя из хранилища.
+     *
+     * @param  ForeignTeacher  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(ForeignTeacher $dataId)
     {
         $dataId->delete();

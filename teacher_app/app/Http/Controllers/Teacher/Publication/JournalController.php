@@ -10,11 +10,20 @@ use Illuminate\Http\Request;
 
 class JournalController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Journal::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param JournalRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(JournalRequest $request)
     {
         $data = $request->validated();
@@ -26,7 +35,12 @@ class JournalController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Изменяет запись в базе данных обратившись в сервис
+     * @param JournalRequest $request
+     * @param Journal $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(JournalRequest $request, Journal $dataId)
     {
         $data = $request->validated();
@@ -38,6 +52,11 @@ class JournalController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Journal $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Journal $dataId)
     {
         $dataId->delete();

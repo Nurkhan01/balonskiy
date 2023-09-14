@@ -9,11 +9,22 @@ use App\Services\Teacher\EnglishLevelService;
 
 class EnglishLevelController extends Controller
 {
+    /**
+     * Отображает список уровней английского языка преподавателя.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => EnglishLevel::all()]);
     }
 
+    /**
+     * Сохраняет новый уровень английского языка преподавателя в хранилище.
+     *
+     * @param  EnglishLevelRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(EnglishLevelRequest $request)
     {
         $data = $request->validated();
@@ -27,7 +38,13 @@ class EnglishLevelController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанный уровень английского языка преподавателя в хранилище.
+     *
+     * @param  EnglishLevelRequest  $request
+     * @param  EnglishLevel  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(EnglishLevelRequest $request, EnglishLevel $dataId)
     {
         $data = $request->validated();
@@ -41,6 +58,12 @@ class EnglishLevelController extends Controller
 
     }
 
+    /**
+     * Удаляет указанный уровень английского языка преподавателя из хранилища.
+     *
+     * @param  EnglishLevel  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(EnglishLevel $dataId)
     {
         $dataId->delete();

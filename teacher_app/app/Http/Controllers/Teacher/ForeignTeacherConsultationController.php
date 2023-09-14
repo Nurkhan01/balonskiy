@@ -9,11 +9,22 @@ use App\Services\Teacher\ForeignTeacherConsultationService;
 
 class ForeignTeacherConsultationController extends Controller
 {
+    /**
+     * Отображает список консультаций иностранного преподавателя.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => ForeignTeacherConsultation::all()]);
     }
 
+    /**
+     * Сохраняет новую консультацию иностранного преподавателя в хранилище.
+     *
+     * @param  ForeignTeacherConsultationRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(ForeignTeacherConsultationRequest $request)
     {
         $data = $request->validated();
@@ -27,7 +38,13 @@ class ForeignTeacherConsultationController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанную консультацию иностранного преподавателя в хранилище.
+     *
+     * @param  ForeignTeacherConsultationRequest  $request
+     * @param  ForeignTeacherConsultation  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(ForeignTeacherConsultationRequest $request, ForeignTeacherConsultation $dataId)
     {
         $data = $request->validated();
@@ -41,6 +58,12 @@ class ForeignTeacherConsultationController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную консультацию иностранного преподавателя из хранилища.
+     *
+     * @param  ForeignTeacherConsultation  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(ForeignTeacherConsultation $dataId)
     {
         $dataId->delete();

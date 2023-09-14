@@ -12,12 +12,22 @@ use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $data = City::all();
         return CityResource::collection($data);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param UniversityCityRequest $request
+     * @param UniversityCityCreateService $service
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(UniversityCityRequest $request, UniversityCityCreateService $service)
     {
         $data = $request->validated();
@@ -28,7 +38,13 @@ class CityController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param UniversityCityRequest $request
+     * @param UniversityCityUpdateService $service
+     * @param City $city
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UniversityCityRequest $request, UniversityCityUpdateService $service, City $city)
     {
         $data = $request->validated();
@@ -40,6 +56,11 @@ class CityController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param City $city
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(City $city)
     {
         if (!$city) {

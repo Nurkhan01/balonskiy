@@ -12,12 +12,21 @@ use Illuminate\Http\Request;
 
 class ResearchWorkController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $data = ResearchWork::all();
         return ResearchWorkResource::collection($data);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param ResearchWorkRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(ResearchWorkRequest $request)
     {
         $data = $request->validated();
@@ -29,7 +38,12 @@ class ResearchWorkController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param ResearchWorkRequest $request
+     * @param ResearchWork $researchWork
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(ResearchWorkRequest $request, ResearchWork $researchWork)
     {
         $data = $request->validated();
@@ -41,6 +55,11 @@ class ResearchWorkController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param ResearchWork $researchWork
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(ResearchWork $researchWork)
     {
         $researchWork->delete();

@@ -9,11 +9,20 @@ use App\Services\Mobility\Country\CountryService;
 
 class CountryController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Country::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param CountryRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(CountryRequest $request)
     {
         $data = $request->validated();
@@ -25,6 +34,12 @@ class CountryController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param CountryRequest $request
+     * @param Country $country
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function update(CountryRequest $request, Country $country)
     {
@@ -37,6 +52,11 @@ class CountryController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Country $country
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Country $country)
     {
         $country->delete();

@@ -6,10 +6,16 @@ use App\Http\Requests\EducationModuleRequest;
 use App\Http\Resources\EducationModuleResource;
 use App\Models\EducationModule;
 use App\Services\EducationModuleService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class EducationModuleController extends Controller
 {
+    /**
+     * Получает все данные из таблицы education_module
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function index(Request $request)
     {
         $education_program_id = $request->query('education_program_id', null);
@@ -17,6 +23,11 @@ class EducationModuleController extends Controller
         return response()->json(["data" => $modulesWithFormations]);
     }
 
+    /**
+     * Создает данные в таблицу education_module ссылаясь на сервис EducationModuleService
+     * @param EducationModuleRequest $request
+     * @return JsonResponse
+     */
     public function create(EducationModuleRequest $request)
     {
         $data = $request->validated(); // Получаем массив объектов из валидированного запроса
@@ -37,6 +48,12 @@ class EducationModuleController extends Controller
     }
 
 
+    /**
+     * Изменяет данные в таблице education_module ссылаясь на сервис EducationModuleService
+     * @param EducationModuleRequest $request
+     * @param EducationModule $dataId
+     * @return JsonResponse
+     */
     public function update(EducationModuleRequest $request, EducationModule $dataId)
     {
         $data = $request->validated();
@@ -48,6 +65,11 @@ class EducationModuleController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет данные из таблицы education_module
+     * @param EducationModule $dataId
+     * @return JsonResponse
+     */
     public function delete(EducationModule $dataId)
     {
         $dataId->delete();

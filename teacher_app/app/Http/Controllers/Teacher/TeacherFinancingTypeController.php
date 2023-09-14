@@ -9,11 +9,22 @@ use App\Services\Teacher\TeacherFinancingTypeService;
 
 class TeacherFinancingTypeController extends Controller
 {
+    /**
+     * Отображает список типов финансирования преподавателя.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => TeacherFinancingType::all()]);
     }
 
+    /**
+     * Сохраняет новый тип финансирования преподавателя в хранилище.
+     *
+     * @param  TeacherFinancingTypeRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(TeacherFinancingTypeRequest $request)
     {
         $data = $request->validated();
@@ -27,7 +38,13 @@ class TeacherFinancingTypeController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанный тип финансирования преподавателя в хранилище.
+     *
+     * @param  TeacherFinancingTypeRequest  $request
+     * @param  TeacherFinancingType  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(TeacherFinancingTypeRequest $request, TeacherFinancingType $dataId)
     {
         $data = $request->validated();
@@ -41,6 +58,12 @@ class TeacherFinancingTypeController extends Controller
 
     }
 
+    /**
+     * Удаляет указанный тип финансирования преподавателя из хранилища.
+     *
+     * @param  TeacherFinancingType  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(TeacherFinancingType $dataId)
     {
         $dataId->delete();

@@ -9,11 +9,20 @@ use App\Services\Student\NationalityService;
 
 class NationalityController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Nationality::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param NationalityRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(NationalityRequest $request)
     {
         $data = $request->validated();
@@ -25,7 +34,12 @@ class NationalityController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Изменяет запись в базе данных обратившись в сервис
+     * @param NationalityRequest $request
+     * @param Nationality $nationality
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(NationalityRequest $request, Nationality $nationality)
     {
         $data = $request->validated();
@@ -37,6 +51,11 @@ class NationalityController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Nationality $nationality
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Nationality $nationality)
     {
         $nationality->delete();

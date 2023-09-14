@@ -13,12 +13,21 @@ use Illuminate\Http\Request;
 
 class DormitoryController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $comments = Dormitory::all();
         return DormitoryResource::collection($comments);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param DormitoryRequest $request
+     * @return JsonResponse
+     */
     public function create(DormitoryRequest $request)
     {
         $data = $request->validated();
@@ -32,6 +41,7 @@ class DormitoryController extends Controller
 
 
     /**
+     * Обновляет запись в базе данных обратившись в сервис
      * @param DormitoryRequest $request
      * @param Dormitory $dormitory
      * @return JsonResponse
@@ -47,6 +57,11 @@ class DormitoryController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Dormitory $dormitory
+     * @return JsonResponse
+     */
     public function delete(Dormitory $dormitory)
     {
         $dormitory->delete();

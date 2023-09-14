@@ -10,11 +10,20 @@ use App\Services\Student\StudyFormService;
 
 class StudyFormController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => StudyForm::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param StudyFormRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(StudyFormRequest $request)
     {
         $data = $request->validated();
@@ -26,7 +35,12 @@ class StudyFormController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Изменяет запись в базе данных обратившись в сервис
+     * @param StudyFormRequest $request
+     * @param StudyForm $studyForm
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(StudyFormRequest $request, StudyForm $studyForm)
     {
         $data = $request->validated();
@@ -38,6 +52,11 @@ class StudyFormController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param StudyForm $studyForm
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(StudyForm $studyForm)
     {
         $studyForm->delete();

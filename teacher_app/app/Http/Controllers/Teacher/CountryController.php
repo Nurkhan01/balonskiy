@@ -9,11 +9,22 @@ use App\Services\Teacher\CountryService;
 
 class CountryController extends Controller
 {
+    /**
+     * Отображает список стран.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Country::all()]);
     }
 
+    /**
+     * Сохраняет новую страну в хранилище.
+     *
+     * @param  CountryRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(CountryRequest $request)
     {
         $data = $request->validated();
@@ -27,7 +38,13 @@ class CountryController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанную страну в хранилище.
+     *
+     * @param  CountryRequest  $request
+     * @param  Country  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(CountryRequest $request, Country $dataId)
     {
         $data = $request->validated();
@@ -41,6 +58,12 @@ class CountryController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную страну из хранилища.
+     *
+     * @param  Country  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Country $dataId)
     {
         $dataId->delete();

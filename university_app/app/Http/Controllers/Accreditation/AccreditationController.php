@@ -12,12 +12,21 @@ use Illuminate\Http\Request;
 
 class AccreditationController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $data = Accreditation::all();
         return AccreditationResource::collection($data);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param AccreditationRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(AccreditationRequest $request)
     {
         $data = $request->validated();
@@ -31,7 +40,12 @@ class AccreditationController extends Controller
 
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param AccreditationRequest $request
+     * @param Accreditation $accreditation
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(AccreditationRequest $request, Accreditation $accreditation)
     {
         $data = $request->validated();
@@ -45,9 +59,13 @@ class AccreditationController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Accreditation $accreditation
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Accreditation $accreditation)
     {
-
         $accreditation->delete();
         return response()->json(['message' => "Data has been deleted"]);
     }

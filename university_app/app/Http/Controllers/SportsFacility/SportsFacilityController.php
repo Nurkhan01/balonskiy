@@ -12,12 +12,21 @@ use Illuminate\Http\Request;
 
 class SportsFacilityController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $data = SportsFacility::all();
         return SportsFacilityResource::collection($data);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param SportsFacilityRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(SportsFacilityRequest $request)
     {
         $data = $request->validated();
@@ -29,7 +38,12 @@ class SportsFacilityController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param SportsFacilityRequest $request
+     * @param SportsFacility $sportsFacility
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(SportsFacilityRequest $request, SportsFacility $sportsFacility)
     {
         $data = $request->validated();
@@ -43,6 +57,11 @@ class SportsFacilityController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param SportsFacility $sportsFacility
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(SportsFacility $sportsFacility)
     {
         $sportsFacility->delete();

@@ -9,11 +9,20 @@ use App\Services\Mobility\AgreementTypeService;
 
 class AgreementTypeController extends Controller
 {
+    /**
+     * Отображает список данных в указанной таблице
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => AgreementType::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param AgreementTypeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(AgreementTypeRequest $request)
     {
         $data = $request->validated();
@@ -25,7 +34,12 @@ class AgreementTypeController extends Controller
         return response()->json(['error' => 'An error occurred while added data']);
     }
 
-
+    /**
+     * Обновляет запись в базе данных обратившись в сервис
+     * @param AgreementTypeRequest $request
+     * @param AgreementType $agreementType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(AgreementTypeRequest $request, AgreementType $agreementType)
     {
         $data = $request->validated();
@@ -37,6 +51,11 @@ class AgreementTypeController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param AgreementType $agreementType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(AgreementType $agreementType)
     {
         $agreementType->delete();

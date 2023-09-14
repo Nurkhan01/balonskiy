@@ -6,15 +6,26 @@ use App\Http\Requests\EducationProgramRequest;
 use App\Http\Resources\EducationProgramResource;
 use App\Models\EducationProgram;
 use App\Services\EducationProgramService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class EducationProgramController extends Controller
 {
+    /**
+     * Получает все данные из таблицы education_program
+     * @return AnonymousResourceCollection
+     */
     public function index()
     {
         $data = EducationProgram::all();
         return EducationProgramResource::collection($data);
     }
 
+    /**
+     * Создает данные в таблицу education_program ссылаясь на сервис EducationProgramService
+     * @param EducationProgramRequest $request
+     * @return JsonResponse
+     */
     public function create(EducationProgramRequest $request)
     {
         $data = $request->validated();
@@ -27,6 +38,12 @@ class EducationProgramController extends Controller
     }
 
 
+    /**
+     * Изменяет данные в таблице education_program ссылаясь на сервис EducationProgramService
+     * @param EducationProgramRequest $request
+     * @param EducationProgram $educationProgram
+     * @return JsonResponse
+     */
     public function update(EducationProgramRequest $request, EducationProgram $educationProgram)
     {
         $data = $request->validated();
@@ -38,6 +55,11 @@ class EducationProgramController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет данные из таблицы education_program
+     * @param EducationProgram $educationProgram
+     * @return JsonResponse
+     */
     public function delete(EducationProgram $educationProgram)
     {
         $educationProgram->delete();

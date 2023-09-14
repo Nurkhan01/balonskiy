@@ -10,11 +10,22 @@ use Illuminate\Http\Request;
 
 class DegreeController extends Controller
 {
+    /**
+     * Отображает список степеней преподавателя.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Degree::all()]);
     }
 
+    /**
+     * Сохраняет новую степень преподавателя в хранилище.
+     *
+     * @param  DegreeRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(DegreeRequest $request)
     {
         $data = $request->validated();
@@ -28,7 +39,13 @@ class DegreeController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанную степень преподавателя в хранилище.
+     *
+     * @param  DegreeRequest  $request
+     * @param  Degree  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(DegreeRequest $request, Degree $dataId)
     {
         $data = $request->validated();
@@ -42,6 +59,12 @@ class DegreeController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную степень преподавателя из хранилища.
+     *
+     * @param  Degree  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Degree $dataId)
     {
         $dataId->delete();

@@ -10,11 +10,22 @@ use Illuminate\Http\Request;
 
 class CitizenshipController extends Controller
 {
+    /**
+     * Отображает список гражданств.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Citizenship::all()]);
     }
 
+    /**
+     * Сохраняет новое гражданство в хранилище.
+     *
+     * @param  CitizenshipRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(CitizenshipRequest $request)
     {
         $data = $request->validated();
@@ -28,7 +39,13 @@ class CitizenshipController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанное гражданство в хранилище.
+     *
+     * @param  CitizenshipRequest  $request
+     * @param  Citizenship  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(CitizenshipRequest $request, Citizenship $dataId)
     {
         $data = $request->validated();
@@ -42,6 +59,12 @@ class CitizenshipController extends Controller
 
     }
 
+    /**
+     * Удаляет указанное гражданство из хранилища.
+     *
+     * @param  Citizenship  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Citizenship $dataId)
     {
         $dataId->delete();

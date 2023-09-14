@@ -10,10 +10,15 @@ use Illuminate\Http\Request;
 
 class PublicationController extends Controller
 {
+    /**
+     * Отображает список данных
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Publication::all()]);
     }
+
 
     public function create(PublicationRequest $request)
     {

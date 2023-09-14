@@ -41,6 +41,15 @@ class DormitoryTypeController extends Controller
         }
         return 'Error';
     }
+
+    /**
+     * Изменяет данные о типах общежитии отправив запрос на микросервис университетов
+     * @param Request $request
+     * @param HttpRequestService $service
+     * @param $id
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function update(Request $request, HttpRequestService $service, $id)
     {
         $data = $request->all();
@@ -50,6 +59,14 @@ class DormitoryTypeController extends Controller
         return 'Error';
     }
 
+    /**
+     * Удаляет данные о типах общежитии отправив запрос на микросервис университетов
+     * @param HttpRequestService $service
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     */
     public function delete(HttpRequestService $service, $id)
     {
         return $service->deleteData("$this->universityPort","$this->action/delete","$id");

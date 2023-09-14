@@ -10,11 +10,22 @@ use Illuminate\Http\Request;
 
 class TeacherLanguageController extends Controller
 {
+    /**
+     * Отображает список владеющих языков преподавателя.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => TeacherLanguage::all()]);
     }
 
+    /**
+     * Сохраняет новый владеющий язык преподавателя в хранилище.
+     *
+     * @param  TeacherLanguageRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(TeacherLanguageRequest $request)
     {
         $data = $request->validated();
@@ -28,7 +39,13 @@ class TeacherLanguageController extends Controller
 
     }
 
-
+    /**
+     * Обновляет указанный владеющий язык преподавателя в хранилище.
+     *
+     * @param  TeacherLanguageRequest  $request
+     * @param  TeacherLanguage  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(TeacherLanguageRequest $request, TeacherLanguage $dataId)
     {
         $data = $request->validated();
@@ -40,6 +57,12 @@ class TeacherLanguageController extends Controller
         return response()->json(['error' => 'An error occurred while updated data']);
     }
 
+    /**
+     * Удаляет указанный владеющий язык преподавателя из хранилища.
+     *
+     * @param  TeacherLanguage  $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(TeacherLanguage $dataId)
     {
         $dataId->delete();

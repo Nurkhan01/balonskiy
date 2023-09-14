@@ -10,11 +10,20 @@ use Illuminate\Http\Request;
 
 class TrainingController extends Controller
 {
+    /**
+     * Отображает список данных
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(['data' => Training::all()]);
     }
 
+    /**
+     * Создает запись в базе данных обратившись в сервис в таблицу указанный в сервисе
+     * @param TrainingRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(TrainingRequest $request)
     {
         $data = $request->validated();
@@ -28,7 +37,12 @@ class TrainingController extends Controller
 
     }
 
-
+    /**
+     * Изменяет запись в базе данных обратившись в сервис
+     * @param TrainingRequest $request
+     * @param Training $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(TrainingRequest $request, Training $dataId)
     {
         $data = $request->validated();
@@ -42,6 +56,11 @@ class TrainingController extends Controller
 
     }
 
+    /**
+     * Удаляет указанную запись из таблицы в базе данных
+     * @param Training $dataId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Training $dataId)
     {
         $dataId->delete();
