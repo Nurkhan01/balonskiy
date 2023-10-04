@@ -25,6 +25,19 @@ class EducationProgramController extends Controller
     }
 
     /**
+     * Получает данные об образовательной программе по ID отправив запрос на микросервис образовательных программ
+     * @param HttpRequestService $service
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getEducationProgramInfo(HttpRequestService $service, Request $request)
+    {
+        $education_program_id = $request->query('id');
+        return $service->getDataByQueryParams("$this->educationProgramPort", "$this->action/get-education-program-info", "id","$education_program_id");
+    }
+
+
+    /**
      * Создает данные об образовательных программах отправив запрос на микросервис  образовательных программ
      * @param Request $request
      * @param HttpRequestService $service

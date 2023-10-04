@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Teacher\Training;
+namespace App\Http\Controllers\TeacherMicroservice\Teacher\Training;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Training\TrainingPaymentTypeRequest;

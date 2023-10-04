@@ -77,6 +77,7 @@ use App\Http\Controllers\UniversityMicroservice\University\ScienceFundingTypeCon
 use App\Http\Controllers\UniversityMicroservice\University\UniversityController;
 use App\Http\Controllers\UserController;
 use App\Services\Api\HttpRequestService;
+use App\Services\Api\UserDataByTokenService;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -96,7 +97,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/authenticate', [AuthController::class, 'index']);
 Route::post('/refresh', [AuthController::class, 'refresh']);
 Route::get('/me', [UserController::class, 'index']);
-
 // Шаг 5: Создание маршрутов API-шлюза
 Route::group(['middleware' => 'api.auth'], function () {
     Route::get('/user', function () {
@@ -116,6 +116,7 @@ Route::group(['middleware' => 'api.auth'], function () {
 
     Route::group(['namespace' => 'App\Http\Controllers', 'prefix' => 'education-program'], function ($router) {
         Route::get('/', [EducationProgramController::class, 'index']);
+        Route::get('/get-education-program-info/', [EducationProgramController::class, 'getEducationProgramInfo']);
         Route::post('/create', [EducationProgramController::class, 'create']);
         Route::put('/update/{id}', [EducationProgramController::class, 'update']);
         Route::delete('/delete/{id}', [EducationProgramController::class, 'delete']);
@@ -143,6 +144,7 @@ Route::group(['middleware' => 'api.auth'], function () {
 
     Route::group(['namespace' => 'App\Http\Controllers', 'prefix' => 'education-discipline'], function ($router) {
         Route::get('/', [EducationDisciplineController::class, 'index']);
+        Route::get('/get-education-disciplines-by-name/', [EducationDisciplineController::class, 'getEducationDisciplinesByName']);
         Route::post('/create', [EducationDisciplineController::class, 'create']);
         Route::put('/update/{id}', [EducationDisciplineController::class, 'update']);
         Route::delete('/delete/{id}', [EducationDisciplineController::class, 'delete']);

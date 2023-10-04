@@ -4,7 +4,7 @@ namespace App\Http\Controllers\UniversityMicroservice\Department;
 
 use App\Http\Controllers\Controller;
 use App\Services\Api\HttpRequestService;
-use App\Services\Api\UniversityIdService;
+use App\Services\Api\UserDataByTokenService;
 use App\Services\Traits\HttpRequestTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -17,12 +17,12 @@ class DepartmentController extends Controller
     /**
      * Получает данные о кафедрах отправив запрос на микросервис университетов
      * @param Request $request
-     * @param UniversityIdService $universityIdService
+     * @param UserDataByTokenService $universityIdService
      * @param HttpRequestService $service
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function index(Request $request, UniversityIdService $universityIdService, HttpRequestService $service)
+    public function index(Request $request, UserDataByTokenService $universityIdService, HttpRequestService $service)
     {
         $universityId = $universityIdService->getUniversityIdByToken($request);
         return $service->getDataByQueryParams("$this->universityPort", "$this->action", "university_id", $universityId);

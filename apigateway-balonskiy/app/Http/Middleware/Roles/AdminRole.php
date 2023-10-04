@@ -3,7 +3,7 @@
 namespace App\Http\Middleware\Roles;
 
 use App\Services\Api\HttpRequestService;
-use App\Services\Api\RoleService;
+use App\Services\Api\UserDataByTokenService;
 use Closure;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class AdminRole
 {
     protected $roleService;
 
-    public function __construct(RoleService $roleService)
+    public function __construct(UserDataByTokenService $roleService)
     {
         $this->roleService = $roleService;
     }
@@ -25,8 +25,6 @@ class AdminRole
      */
     public function handle(Request $request, Closure $next)
     {
-        $service = new HttpRequestService(); // Assuming this is the correct service
-
         if ($this->roleService->checkRole($request, 'admin')) {
             return $next($request);
         } else {

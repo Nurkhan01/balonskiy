@@ -54,6 +54,14 @@ class HttpRequestService
         ]);
         return json_decode($response->getBody(), true);
     }
+    public function createDataWithLog($port, $route, $validData, $userData)
+    {
+        $client = new Client;
+        $response = $client->post("$this->host:$port/api/$route?name=${userData["name"]}&id=${userData["id"]}", [
+            'form_params' => $validData,
+        ]);
+        return json_decode($response->getBody(), true);
+    }
 
     /**
      * Отправляет PUT запрос по указанному URL на микросервисы для изменения данных по указанному id
